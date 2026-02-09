@@ -1,0 +1,775 @@
+@font-face {
+    font-family: Crock;
+    src: url(../fonts/crock.ttf) format("truetype")
+}
+
+@font-face {
+    font-family: Hapna;
+    src: url(../fonts/Hapna.ttf) format("truetype");
+    font-weight: 400
+}
+
+@font-face {
+    font-family: Hapna;
+    src: url(../fonts/HapnaMedium.ttf) format("truetype");
+    font-weight: 500
+}
+
+@font-face {
+    font-family: Hapna;
+    src: url(../fonts/HapnaDemiBold.ttf) format("truetype");
+    font-weight: 600
+}
+
+@font-face {
+    font-family: Hapna;
+    src: url(../fonts/HapnaBold.ttf) format("truetype");
+    font-weight: 700
+}
+
+@font-face {
+    font-family: Hapna;
+    src: url(../fonts/HapnaExtraBold.ttf) format("truetype");
+    font-weight: 800
+}
+
+@font-face {
+    font-family: Hapna;
+    src: url(../fonts/HapnaLight.ttf) format("truetype");
+    font-weight: 300
+}
+
+@keyframes iconFlip {
+    0% {
+        transform: rotateY(0deg);
+    }
+
+    50% {
+        transform: rotateY(360deg);
+    }
+
+    100% {
+        transform: rotateY(720deg);
+    }
+}
+
+@keyframes textFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    30% {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    60% {
+        opacity: 0.3;
+        transform: translateY(4px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes textFadeOut {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes iconFadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) rotateY(0deg);
+    }
+
+    25% {
+        opacity: 0;
+        transform: scale(0.85) rotateY(90deg);
+    }
+
+    50% {
+        opacity: 0.2;
+        transform: scale(0.9) rotateY(180deg);
+    }
+
+    75% {
+        opacity: 0.6;
+        transform: scale(0.95) rotateY(270deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) rotateY(360deg);
+    }
+}
+
+@keyframes iconFadeOut {
+    0% {
+        opacity: 1;
+        transform: scale(1) rotateY(0deg);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0.8) rotateY(-180deg);
+    }
+}
+
+.notification-container {
+    position: fixed;
+    z-index: 99999999;
+    pointer-events: none;
+    width: 520px;
+    max-width: 90%;
+    transition: all 0.3s ease-in-out;
+}
+
+.notification-container.top-right {
+    top: 2rem;
+    right: 3rem;
+}
+
+.notification-container.top-center {
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.notification-container.top-left {
+    top: 2rem;
+    left: 3rem;
+}
+
+.notification-container.middle-right {
+    top: 50%;
+    right: 3rem;
+    transform: translateY(-50%);
+}
+
+.notification-container.middle-center {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.notification-container.middle-left {
+    top: 50%;
+    left: 3rem;
+    transform: translateY(-50%);
+}
+
+.notification-container.bottom-right {
+    bottom: 2rem;
+    right: 3rem;
+}
+
+.notification-container.bottom-center {
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.notification-container.bottom-left {
+    bottom: 2rem;
+    left: 3rem;
+}
+
+.notification {
+    position: relative;
+    color: white;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    pointer-events: auto;
+    will-change: transform;
+    transform-origin: center center;
+}
+
+.notification.with-bg {
+    padding: 1.2rem;
+    background: url(../imgs/toast.png) no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.notification.with-bg.rtl {
+    background: url(../imgs/toast-rtl.png) no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.notification.without-bg {
+    flex-direction: row-reverse;
+    text-shadow: 0px 0px 0px rgba(0, 0, 0, 1), 1px 1px 3px rgba(0, 0, 0, 1);
+}
+
+.notification-content {
+    flex-grow: 1;
+    margin-right: 1rem;
+    display: flex;
+    align-items: center;
+    will-change: transform, opacity;
+}
+
+.notification-content.with-description {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.notification.rtl .notification-content {
+    margin-right: 0;
+    margin-left: 1rem;
+}
+
+.notification-icon {
+    width: 60px;
+    height: 60px;
+    margin-right: 1.2rem;
+    flex-shrink: 0;
+    will-change: transform;
+    transform-style: preserve-3d;
+    backface-visibility: visible;
+}
+
+.notification.without-bg .notification-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 0.5rem;
+}
+
+.notification.rtl .notification-icon {
+    margin-right: 0;
+    margin-left: 1rem;
+}
+
+.notification-title {
+    margin-bottom: 0;
+    font-size: 1.2em;
+    font-family: 'Crock';
+    will-change: transform, opacity;
+}
+
+.notification.without-bg .notification-title {
+    font-size: 1.1em;
+    font-weight: 600;
+    font-family: 'Hapna';
+}
+
+.notification-content.with-description .notification-title {
+    margin-bottom: 0.25rem;
+}
+
+.notification-description {
+    font-weight: 600;
+    font-family: 'Hapna';
+    font-size: 1em;
+    opacity: 0.8;
+    will-change: transform, opacity;
+}
+
+.notification.align-start {
+    text-align: start;
+}
+
+.notification.align-center {
+    text-align: center;
+}
+
+.notification.align-end {
+    text-align: end;
+}
+
+.inline-image {
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    display: inline-block;
+    margin: 0 2px;
+    position: relative;
+    top: -0.1em;
+}
+
+.notification.without-bg .inline-image {
+    width: 45px;
+    height: 45px;
+}
+
+.notification.without-bg.ltr.top-right .notification-content,
+.notification.without-bg.ltr.middle-right .notification-content,
+.notification.without-bg.ltr.bottom-right .notification-content,
+.notification.without-bg.rtl.top-left .notification-content,
+.notification.without-bg.rtl.middle-left .notification-content,
+.notification.without-bg.rtl.bottom-left .notification-content {
+    justify-content: end;
+}
+
+.notification.without-bg.top-center .notification-content,
+.notification.without-bg.middle-center .notification-content,
+.notification.without-bg.bottom-center .notification-content {
+    justify-content: center;
+}
+
+@keyframes jellyInRight {
+    0% {
+        transform: translateX(150%);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    40% {
+        transform: translateX(-15%);
+    }
+
+    70% {
+        transform: translateX(5%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes jellyInLeft {
+    0% {
+        transform: translateX(-150%);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    40% {
+        transform: translateX(15%);
+    }
+
+    70% {
+        transform: translateX(-5%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes jellyInUp {
+    0% {
+        transform: translateY(150%);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    40% {
+        transform: translateY(-15%);
+    }
+
+    70% {
+        transform: translateY(5%);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes jellyInDown {
+    0% {
+        transform: translateY(-150%);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    40% {
+        transform: translateY(15%);
+    }
+
+    70% {
+        transform: translateY(-5%);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes jellyOutRight {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    30% {
+        transform: translateX(-3%);
+    }
+
+    60% {
+        transform: translateX(10%);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(120%);
+        opacity: 0;
+    }
+}
+
+@keyframes jellyOutLeft {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    30% {
+        transform: translateX(3%);
+    }
+
+    60% {
+        transform: translateX(-10%);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(-120%);
+        opacity: 0;
+    }
+}
+
+@keyframes jellyOutUp {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    30% {
+        transform: translateY(3%);
+    }
+
+    60% {
+        transform: translateY(-10%);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-120%);
+        opacity: 0;
+    }
+}
+
+@keyframes jellyOutDown {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    30% {
+        transform: translateY(-3%);
+    }
+
+    60% {
+        transform: translateY(10%);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(120%);
+        opacity: 0;
+    }
+}
+
+@keyframes jellyOutCenter {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    30% {
+        transform: scale(1.05);
+    }
+
+    60% {
+        transform: scale(0.9);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+.jelly-enter-active {
+    animation-duration: 0.3s;
+    animation-fill-mode: both;
+}
+
+.jelly-enter-active .notification-title,
+.jelly-enter-active .notification-description {
+    opacity: 0;
+    animation: textFadeIn 1.2s ease-out 0.4s forwards;
+}
+
+.jelly-enter-active .notification-icon {
+    opacity: 0;
+    animation: iconFadeIn 1.3s ease-out 0.35s forwards;
+}
+
+.jelly-leave-active {
+    animation-duration: 0.6s;
+    animation-fill-mode: both;
+    animation-delay: 0.4s;
+}
+
+.jelly-leave-active .notification-title,
+.jelly-leave-active .notification-description {
+    animation: textFadeOut 0.3s ease-in forwards;
+}
+
+.jelly-leave-active .notification-icon {
+    animation: iconFadeOut 0.3s ease-in forwards;
+}
+
+.jelly-enter-active.top-right,
+.jelly-enter-active.middle-right,
+.jelly-enter-active.bottom-right {
+    animation-name: jellyInRight;
+}
+
+.jelly-enter-active.top-left,
+.jelly-enter-active.middle-left,
+.jelly-enter-active.bottom-left {
+    animation-name: jellyInLeft;
+}
+
+.jelly-enter-active.top-center {
+    animation-name: jellyInDown;
+}
+
+.jelly-enter-active.middle-center {
+    animation-name: jellyInCenter;
+}
+
+.jelly-enter-active.bottom-center {
+    animation-name: jellyInUp;
+}
+
+.jelly-leave-active.top-right,
+.jelly-leave-active.middle-right,
+.jelly-leave-active.bottom-right {
+    animation-name: jellyOutRight;
+}
+
+.jelly-leave-active.top-left,
+.jelly-leave-active.middle-left,
+.jelly-leave-active.bottom-left {
+    animation-name: jellyOutLeft;
+}
+
+.jelly-leave-active.top-center {
+    animation-name: jellyOutUp;
+}
+
+.jelly-leave-active.middle-center {
+    animation-name: jellyOutCenter;
+}
+
+.jelly-leave-active.bottom-center {
+    animation-name: jellyOutDown;
+}
+
+.progress-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.progress-bar {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background-color: transparent;
+    border-radius: 0 0 4px 4px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    transform-origin: left;
+    will-change: transform;
+}
+
+.progress-circle {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    width: 30px;
+    height: 30px;
+}
+
+.notification.rtl .progress-circle {
+    right: auto;
+    left: 1rem;
+}
+
+.progress-circle-bg {
+    fill: none;
+    stroke: transparent;
+    stroke-width: 3;
+}
+
+.progress-circle-text {
+    font-size: 12px;
+    fill: currentColor;
+    text-anchor: middle;
+    dominant-baseline: central;
+}
+
+.progress-circle>svg {
+    background: #000;
+    border-radius: 100%;
+}
+
+.notification-content.with-circle-progress {
+    margin-right: 50px;
+}
+
+.key-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 1.0);
+    color: #000;
+    border-radius: 1px;
+    padding: 0px 4px;
+    margin: 0 2px;
+    font-family: monospace;
+    font-weight: bold;
+    min-width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+
+.key-icon img {
+    height: 16px;
+    width: 16px;
+    vertical-align: middle;
+}
+
+@keyframes keyPulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.key-active {
+    animation: keyPulse 0.5s ease infinite;
+    background: rgba(255, 255, 255, 0.4);
+}
+
+@keyframes jellyInCenter {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    40% {
+        transform: scale(1.15);
+    }
+
+    70% {
+        transform: scale(0.95);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.jelly-enter-active.without-bg {
+    animation: tipContainerSlideUp 0.6s ease-out forwards !important;
+}
+
+.jelly-leave-active.without-bg {
+    animation: tipContainerFadeOut 0.4s ease-in forwards !important;
+}
+
+.jelly-enter-active.without-bg .notification-title,
+.jelly-enter-active.without-bg .notification-description {
+    opacity: 1 !important;
+    animation: none !important;
+}
+
+.jelly-enter-active.without-bg .notification-icon {
+    opacity: 1 !important;
+    animation: none !important;
+}
+
+.jelly-leave-active.without-bg .notification-title,
+.jelly-leave-active.without-bg .notification-description {
+    animation: none !important;
+}
+
+.jelly-leave-active.without-bg .notification-icon {
+    animation: none !important;
+}
+
+@keyframes tipContainerSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes tipContainerFadeOut {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}

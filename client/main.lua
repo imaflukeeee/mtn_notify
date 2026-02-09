@@ -1,0 +1,164 @@
+local resourceName = GetCurrentResourceName()
+
+-- --------------------------------------------------------
+-- Action Keys
+-- --------------------------------------------------------
+local activeNotifications = {}
+
+local function RegisterNotificationKeys(notificationId, keyActions, placement)
+    if not keyActions then return end
+    
+    local validKeyActions = {}
+    for keyName, action in pairs(keyActions) do
+        local keyHash = Keys[string.upper(keyName)]
+        if keyHash then
+            validKeyActions[keyHash] = {
+                action = action,
+                keyName = string.upper(keyName)
+            }
+        else
+            print(string.format("Warning: Invalid key name '%s' for notification", keyName))
+        end
+    end
+    
+    activeNotifications[notificationId] = {
+        keyActions = validKeyActions,
+        active = true,
+        placement = placement
+    }
+end
+
+local function RemoveNotificationKeys(notificationId)
+    if activeNotifications[notificationId] then
+        activeNotifications[notificationId].active = false
+        activeNotifications[notificationId] = nil
+    end
+end
+
+CreateThread(function()
+    while true do
+        Wait(0)
+        for notificationId, data in pairs(activeNotifications) do
+            if data.active then
+                for keyHash, keyData in pairs(data.keyActions) do
+                    if IsControlJustPressed(0, keyHash) then
+                        SendNUIMessage({
+                            type = 'BLN_NOTIFY_KEY_PRESSED',
+                            notificationId = notificationId,
+                            key = keyData.keyName,
+                            placement = data.placement
+                        })
+                        TriggerEvent('bln_notify:keyPressed', keyData.action)
+                    end
+                end
+            end
+        end
+    end
+end)
+
+-- --------------------------------------------------------
+-- Notification System
+-- --------------------------------------------------------
+
+local function SendNotification(options, template)
+    if type(options) ~= "table" and type(template) ~= "table" then
+        return print("Error: options or template must be a table")
+    end
+
+    local finalOptions = {}
+    
+    if template and type(template) == "string" and Config.Templates[template] then
+        for k, v in pairs(Config.Templates[template]) do
+            finalOptions[k] = v
+        end
+    end
+    
+    for k, v in pairs(options) do
+        finalOptions[k] = v
+    end
+
+    local notificationId = GetGameTimer() .. math.random(1000000) .. GetPlayerServerId(PlayerId())
+    
+    finalOptions.id = notificationId
+    
+    if finalOptions.keyActions then
+        RegisterNotificationKeys(notificationId, finalOptions.keyActions, finalOptions.placement)
+    end
+
+    SendNUIMessage({
+        type = "BLN_NOTIFY",
+        options = finalOptions
+    })
+
+    if options.duration then
+        SetTimeout(options.duration, function()
+            RemoveNotificationKeys(notificationId)
+        end)
+    end
+end
+
+RegisterNuiCallback("playSound", function(data, cb)
+
+    if data.sound and data.soundSet then
+        PlaySoundFrontend(data.sound, data.soundSet, true, 0)
+    else
+        local sound = "INFO_HIDE"
+        local soundSet = "Ledger_Sounds"
+        PlaySoundFrontend(sound, soundSet, true, 0)
+    end
+    cb("ok")
+end)
+
+RegisterNetEvent(resourceName .. ":send")
+AddEventHandler(resourceName .. ":send", function(options, template)
+    SendNotification(options, template)
+end)
+
+RegisterCommand('testnotify', function()
+    TriggerEvent("bln_notify:send", {
+        title = "ทดสอบระบบ",
+        description = "นี่คือข้อความแจ้งเตือนจากคำสั่ง ~green~testnotify~e~",
+        icon = "tick",
+        placement = "top-right",
+        duration = 5000
+    })
+end)
+
+RegisterCommand('testprogress', function()
+    TriggerEvent("bln_notify:send", {
+        title = "กำลังขุดแร่...",
+        description = "กรุณารอสักครู่จนกว่าแถบจะเต็ม",
+        icon = "warning",
+        placement = "middle-right",
+        duration = 10000, -- 10 วินาที
+        progress = {
+            enabled = true,
+            type = 'bar', -- มีแบบ 'bar' และ 'circle'
+            color = '#ffcc00'
+        }
+    })
+end)
+
+RegisterCommand('testask', function()
+    TriggerEvent("bln_notify:send", {
+        title = "~#ffcc00~ยืนยันการขาย~e~",
+        description = "กด ~key:E~ เพื่อขายสินค้า หรือ ~key:F6~ เพื่อยกเลิก",
+        icon = "toast_mp_daily_objective_small",
+        duration = 10000,
+        keyActions = {
+            ['E'] = "accept_trade",
+            ['F6'] = "cancel_trade"
+        }
+    })
+end)
+
+-- ส่วนรับค่าจากการกดปุ่ม (ใส่ไว้ใน Client เช่นกัน)
+RegisterNetEvent("bln_notify:keyPressed")
+AddEventHandler("bln_notify:keyPressed", function(action)
+    if action == "accept_trade" then
+        print("คุณกดตกลงขายสินค้า")
+        -- ใส่ Logic การขายตรงนี้
+    elseif action == "cancel_trade" then
+        print("คุณกดยกเลิก")
+    end
+end)

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BLN Notify</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.min.js"></script>
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+</head>
+
+<body>
+  <div id="app">
+    <div v-for="(container, position) in notificationContainers" :key="position"
+      :class="['notification-container', position]">
+      <transition-group name="jelly" tag="div">
+        <div v-for="notification in container" :key="notification.id" :class="['notification', position, 
+                              { 'with-bg': notification.useBackground, 'without-bg': !notification.useBackground },
+                              `align-${notification.contentAlignment} ${ notification.isRTL ? 'rtl' : 'ltr'}`,]"
+          :style="{ direction: notification.isRTL ? 'rtl' : 'ltr' }">
+          <img v-if="notification.icon" :src="getIconUrl(notification.icon)" alt="Notification Icon"
+            class="notification-icon" />
+          <div :class="['notification-content', { 'with-description': notification.description }]">
+            <div class="notification-title">
+              <dynamic-text :text="notification.title"></dynamic-text>
+            </div>
+            <div v-if="notification.description" class="notification-description">
+              <dynamic-text :text="notification.description"></dynamic-text>
+            </div>
+          </div>
+          <template v-if="notification.progress && notification.progress.enabled">
+            <bar-progress
+              v-if="notification.progress.type === 'bar'"
+              :progress="notification.progress.value"
+              :duration="notification.duration"
+              :color="notification.progress.color"
+            ></bar-progress>
+            <circle-progress
+              v-else-if="notification.progress.type === 'circle'"
+              :progress="notification.progress.value"
+              :duration="notification.duration"
+              :color="notification.progress.color"
+              :remaining-time="notification.remainingTime"
+            ></circle-progress>
+          </template>
+        </div>
+      </transition-group>
+    </div>
+  </div>
+
+  <script src="./assets/js/progress.js"></script>
+  <script src="./assets/js/dynamic-text.js"></script>
+  <script src="./assets/js/app.js"></script>
+</body>
+
+</html>
