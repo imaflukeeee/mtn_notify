@@ -1,4 +1,4 @@
-local resourceName = GetCurrentResourceName()
+local resourceName = "mtn_notify" -- กำหนดชื่อ Resource ตายตัวเพื่อให้ตรงกับ Client
 
 RegisterNetEvent(resourceName .. ":send")
 AddEventHandler(resourceName .. ":send", function(source, options, template)
@@ -8,4 +8,3 @@ AddEventHandler(resourceName .. ":send", function(source, options, template)
 
     TriggerClientEvent(resourceName .. ":send", source, options, template)
 end)
-

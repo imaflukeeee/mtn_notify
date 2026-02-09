@@ -28,10 +28,13 @@ new Vue({
     });
 
     window.addEventListener("message", (event) => {
-      if (event.data.type === "BLN_NOTIFY") {
+      // แก้ไขตรงนี้: เปลี่ยนจาก BLN_NOTIFY เป็น MTN_NOTIFY
+      if (event.data.type === "MTN_NOTIFY") {
         this.PlaySound(event.data.options?.customSound);
         this.notify(event.data.options);
-      } else if (event.data.type === "BLN_NOTIFY_KEY_PRESSED") {
+      } 
+      // แก้ไขตรงนี้: เปลี่ยนจาก BLN_NOTIFY_KEY_PRESSED เป็น MTN_NOTIFY_KEY_PRESSED
+      else if (event.data.type === "MTN_NOTIFY_KEY_PRESSED") {
         this.handleKeyPress(
           event.data.notificationId,
           event.data.key,

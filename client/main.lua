@@ -43,12 +43,12 @@ CreateThread(function()
                 for keyHash, keyData in pairs(data.keyActions) do
                     if IsControlJustPressed(0, keyHash) then
                         SendNUIMessage({
-                            type = 'BLN_NOTIFY_KEY_PRESSED',
+                            type = 'MTN_NOTIFY_KEY_PRESSED', -- เปลี่ยนจาก BLN เป็น MTN
                             notificationId = notificationId,
                             key = keyData.keyName,
                             placement = data.placement
                         })
-                        TriggerEvent('bln_notify:keyPressed', keyData.action)
+                        TriggerEvent('mtn_notify:keyPressed', keyData.action) -- เปลี่ยน Event Name
                     end
                 end
             end
@@ -86,7 +86,7 @@ local function SendNotification(options, template)
     end
 
     SendNUIMessage({
-        type = "BLN_NOTIFY",
+        type = "MTN_NOTIFY", -- เปลี่ยนจาก BLN เป็น MTN
         options = finalOptions
     })
 
@@ -115,7 +115,7 @@ AddEventHandler(resourceName .. ":send", function(options, template)
 end)
 
 RegisterCommand('testnotify', function()
-    TriggerEvent("bln_notify:send", {
+    TriggerEvent("mtn_notify:send", { -- เปลี่ยน Event Name
         title = "ทดสอบระบบ",
         description = "นี่คือข้อความแจ้งเตือนจากคำสั่ง ~green~testnotify~e~",
         icon = "tick",
@@ -125,7 +125,7 @@ RegisterCommand('testnotify', function()
 end)
 
 RegisterCommand('testprogress', function()
-    TriggerEvent("bln_notify:send", {
+    TriggerEvent("mtn_notify:send", { -- เปลี่ยน Event Name
         title = "กำลังขุดแร่...",
         description = "กรุณารอสักครู่จนกว่าแถบจะเต็ม",
         icon = "warning",
@@ -134,14 +134,14 @@ RegisterCommand('testprogress', function()
         progress = {
             enabled = true,
             type = 'bar', -- มีแบบ 'bar' และ 'circle'
-            color = '#ffcc00'
+            color = 'FFFFFFFF'
         }
     })
 end)
 
 RegisterCommand('testask', function()
-    TriggerEvent("bln_notify:send", {
-        title = "~#ffcc00~ยืนยันการขาย~e~",
+    TriggerEvent("mtn_notify:send", { -- เปลี่ยน Event Name
+        title = "~#FFFFFFFF~ยืนยันการขาย~e~",
         description = "กด ~key:E~ เพื่อขายสินค้า หรือ ~key:F6~ เพื่อยกเลิก",
         icon = "toast_mp_daily_objective_small",
         duration = 10000,
@@ -153,8 +153,8 @@ RegisterCommand('testask', function()
 end)
 
 -- ส่วนรับค่าจากการกดปุ่ม (ใส่ไว้ใน Client เช่นกัน)
-RegisterNetEvent("bln_notify:keyPressed")
-AddEventHandler("bln_notify:keyPressed", function(action)
+RegisterNetEvent("mtn_notify:keyPressed") -- เปลี่ยน Event Name
+AddEventHandler("mtn_notify:keyPressed", function(action)
     if action == "accept_trade" then
         print("คุณกดตกลงขายสินค้า")
         -- ใส่ Logic การขายตรงนี้

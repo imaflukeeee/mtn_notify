@@ -4,7 +4,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BLN Notify</title>
+  <title>MTN Notify</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pridi:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+  
   <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.min.js"></script>
   <link rel="stylesheet" href="./assets/css/styles.css" />
 </head>
@@ -18,8 +23,11 @@
                               { 'with-bg': notification.useBackground, 'without-bg': !notification.useBackground },
                               `align-${notification.contentAlignment} ${ notification.isRTL ? 'rtl' : 'ltr'}`,]"
           :style="{ direction: notification.isRTL ? 'rtl' : 'ltr' }">
-          <img v-if="notification.icon" :src="getIconUrl(notification.icon)" alt="Notification Icon"
-            class="notification-icon" />
+          
+          <div class="icon-wrapper" v-if="notification.icon">
+             <img :src="getIconUrl(notification.icon)" alt="Notification Icon" class="notification-icon" />
+          </div>
+
           <div :class="['notification-content', { 'with-description': notification.description }]">
             <div class="notification-title">
               <dynamic-text :text="notification.title"></dynamic-text>
@@ -28,6 +36,7 @@
               <dynamic-text :text="notification.description"></dynamic-text>
             </div>
           </div>
+          
           <template v-if="notification.progress && notification.progress.enabled">
             <bar-progress
               v-if="notification.progress.type === 'bar'"

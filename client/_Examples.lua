@@ -97,7 +97,7 @@ local function AddRandomStyling(text)
     return styledText
 end
 
-RegisterCommand("bln_notify_allAdvanced", function(source, args, rawCommand)
+RegisterCommand("mtn_notify_allAdvanced", function(source, args, rawCommand) -- เปลี่ยนชื่อคำสั่ง
     local baseTitle = "Notification ~#ffcc00~Title!~e~"
     local baseDescription = "This is a custom color."
 
@@ -125,21 +125,21 @@ RegisterCommand("bln_notify_allAdvanced", function(source, args, rawCommand)
             duration = 10000,
         }
         
-        TriggerEvent("bln_notify:send", options)
+        TriggerEvent("mtn_notify:send", options) -- เปลี่ยน Event Name
         
         Citizen.Wait(100)
     end
 end, false)
 
-TriggerEvent("chat:addSuggestion", "/bln_notify_allAdvanced", "Show notifications in all placements", {
+TriggerEvent("chat:addSuggestion", "/mtn_notify_allAdvanced", "Show notifications in all placements", { -- เปลี่ยน Suggestion
     { name = "direction", help = "Use 'RTL' for right-to-left text direction" }
 })
 
 -- --------------------------------
 -- All Tips
 -- --------------------------------
-RegisterCommand("bln_notify_allTips", function(source, args, rawCommand)
-    local title = "This is a tip ~img:mp_roles_bounty_hunter_tier~ from ~#ffcc00~BLN Notify~e~!"
+RegisterCommand("mtn_notify_allTips", function(source, args, rawCommand) -- เปลี่ยนชื่อคำสั่ง
+    local title = "This is a tip ~img:mp_roles_bounty_hunter_tier~ from ~#ffcc00~MTN Notify~e~!" -- เปลี่ยนข้อความ
 
     for _, placement in ipairs(placements) do
         local options = {
@@ -149,20 +149,20 @@ RegisterCommand("bln_notify_allTips", function(source, args, rawCommand)
             icon = args[2] == 'icon' and GetRandomIcon(),
         }
         
-        TriggerEvent("bln_notify:send", options, 'TIP')
+        TriggerEvent("mtn_notify:send", options, 'TIP') -- เปลี่ยน Event Name
         
         Citizen.Wait(100)
     end
 end, false)
-TriggerEvent("chat:addSuggestion", "/bln_notify_allTips", "Show tip notifications in all placements", {
+TriggerEvent("chat:addSuggestion", "/mtn_notify_allTips", "Show tip notifications in all placements", { -- เปลี่ยน Suggestion
     { name = "direction", help = "Use 'RTL' for right-to-left text direction" },
     { name = "icon", help = "Use 'icon' to include a random icon" }
 })
 
 -- --------------------------------
--- bln_notify
+-- mtn_notify
 -- --------------------------------
-RegisterCommand("bln_notify", function(source, args, rawCommand)
+RegisterCommand("mtn_notify", function(source, args, rawCommand) -- เปลี่ยนชื่อคำสั่ง
     local defaultPlacement = "middle-right"
     local defaultTitle = "~#ffcc00~Notification~e~"
     local defaultTitleRTL = "~#ffcc00~عنوان~e~ الاشعار"
@@ -200,10 +200,10 @@ RegisterCommand("bln_notify", function(source, args, rawCommand)
         placement = (args[5] and validPlacements[args[5]] and args[5]) or defaultPlacement,
     }
 
-    TriggerEvent("bln_notify:send", options)
+    TriggerEvent("mtn_notify:send", options) -- เปลี่ยน Event Name
 end, false)
 
-TriggerEvent("chat:addSuggestion", "/bln_notify", "Show a custom notification", {
+TriggerEvent("chat:addSuggestion", "/mtn_notify", "Show a custom notification", { -- เปลี่ยน Suggestion
     {name = "isRTL", help = "Use 'RTL' for right-to-left text direction"},
     { name = "title", help = "Notification title (supports colors with ~color~ or ~#hex~)" },
     { name = "description", help = "Description (supports colors and images with ~img:name~)" },
@@ -214,15 +214,15 @@ TriggerEvent("chat:addSuggestion", "/bln_notify", "Show a custom notification", 
 -- --------------------------------
 -- template example
 -- --------------------------------
-RegisterCommand("bln_notify_template", function(source, args, rawCommand)
+RegisterCommand("mtn_notify_template", function(source, args, rawCommand) -- เปลี่ยนชื่อคำสั่ง
     local options = {
         title = args[2],
     }
     options.description = args[3] or 'This is a description example.'
-    TriggerEvent("bln_notify:send", options, args[1])
+    TriggerEvent("mtn_notify:send", options, args[1]) -- เปลี่ยน Event Name
 end, false)
 
-TriggerEvent("chat:addSuggestion", "/bln_notify_template", "Run notification from template", {
+TriggerEvent("chat:addSuggestion", "/mtn_notify_template", "Run notification from template", { -- เปลี่ยน Suggestion
     { name = "templateName", help = "Template name like (SUCCESS, TIP,...)" },
     { name = "title", help = "Title of notification." },
     { name = "description", help = "Description for notification (optional)." }
@@ -231,7 +231,7 @@ TriggerEvent("chat:addSuggestion", "/bln_notify_template", "Run notification fro
 -- --------------------------------
 -- progress notify example
 -- --------------------------------
-RegisterCommand("bln_notify_progress", function(source, args, rawCommand)
+RegisterCommand("mtn_notify_progress", function(source, args, rawCommand) -- เปลี่ยนชื่อคำสั่ง
     local options = {
         title = "Information ~#ffcd02~title~e~",
         description = "This is a description with ~#ffcc00~custom color~e~.",
@@ -244,17 +244,17 @@ RegisterCommand("bln_notify_progress", function(source, args, rawCommand)
             color = '#ffcc00'
         }
     }
-    TriggerEvent("bln_notify:send", options)
+    TriggerEvent("mtn_notify:send", options) -- เปลี่ยน Event Name
 end, false)
 
-TriggerEvent("chat:addSuggestion", "/bln_notify_progress", "Run notification with progress", {
+TriggerEvent("chat:addSuggestion", "/mtn_notify_progress", "Run notification with progress", { -- เปลี่ยน Suggestion
     { name = "type", help = "Progress type [bar], [circle]" },
 })
 
 -- --------------------------------
 -- keyActions notify example
 -- --------------------------------
-RegisterCommand("bln_notify_key", function(source, args, rawCommand)
+RegisterCommand("mtn_notify_key", function(source, args, rawCommand) -- เปลี่ยนชื่อคำสั่ง
     local options = {
         title = "Key Notify ~#ffcd02~title~e~",
         description = "This is a description with ~#ffcc00~custom color~e~. Press ~key:ENTER~ to Accept, ~key:F6~ to decline.",
@@ -266,15 +266,15 @@ RegisterCommand("bln_notify_key", function(source, args, rawCommand)
             ['F6'] = "decline" 
         }
     }
-    TriggerEvent("bln_notify:send", options)
+    TriggerEvent("mtn_notify:send", options) -- เปลี่ยน Event Name
 end, false)
 
-TriggerEvent("chat:addSuggestion", "/bln_notify_key", "Run notification with key", {
+TriggerEvent("chat:addSuggestion", "/mtn_notify_key", "Run notification with key", { -- เปลี่ยน Suggestion
     { name = "key", help = "key" },
 })
 
 -- Listen event for key press of our notification
-RegisterNetEvent("bln_notify:keyPressed")
-AddEventHandler("bln_notify:keyPressed", function(action)
+RegisterNetEvent("mtn_notify:keyPressed") -- เปลี่ยน Event Name
+AddEventHandler("mtn_notify:keyPressed", function(action)
     print("Key pressed: " .. action)
 end)
