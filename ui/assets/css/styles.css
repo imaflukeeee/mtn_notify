@@ -203,3 +203,18 @@
 .jelly-enter-active.bottom-center { animation-name: slideInBottom; }
 
 .jelly-leave-active { animation-name: fadeOut; }
+
+.notification-content.no-title {
+    justify-content: center; /* จัดให้อยู่กึ่งกลางแนวตั้งเมื่อไม่มีหัวข้อ */
+}
+
+.notification-content.no-title .notification-description {
+    font-size: 14px; /* ปรับขนาดให้ใหญ่ขึ้นเล็กน้อยเมื่อแสดงตัวเดียว */
+    font-weight: 400;
+    color: #ffffff; /* ปรับสีให้เด่นขึ้น */
+}
+
+/* กรณีที่ส่งหัวข้อเป็นค่าว่าง "" มาจากสคริปต์ */
+.notification-title:empty {
+    display: none;
+}

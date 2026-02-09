@@ -28,8 +28,8 @@
              <img :src="getIconUrl(notification.icon)" alt="Notification Icon" class="notification-icon" />
           </div>
 
-          <div :class="['notification-content', { 'with-description': notification.description }]">
-            <div class="notification-title">
+          <div :class="['notification-content', { 'with-description': notification.description, 'no-title': !notification.title }]">
+            <div v-if="notification.title" class="notification-title">
               <dynamic-text :text="notification.title"></dynamic-text>
             </div>
             <div v-if="notification.description" class="notification-description">
