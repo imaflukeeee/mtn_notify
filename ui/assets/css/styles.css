@@ -218,3 +218,93 @@
 .notification-title:empty {
     display: none;
 }
+
+/* --- Notification Item: Extra Small (Reduced 15%) & Center Fixed --- */
+.notification.item {
+    /* ใช้ Grid จัด Layout: [Icon] [Text Area] */
+    display: grid !important;
+    grid-template-columns: auto 1fr !important;
+    grid-template-rows: auto auto !important;
+    
+    /* Styling Theme */
+    font-family: 'Pridi', serif !important;
+    background: rgba(20, 20, 20, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px; /* ลด radius ลงให้สมส่วน */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8); /* ลดเงาลงนิดหน่อย */
+    color: #f0f0f0;
+    
+    /* --- ลดขนาดลงอีก 15% --- */
+    padding: 8px 10px;       /* พื้นที่ภายในเล็กลง */
+    margin-bottom: 6px;
+    min-width: 180px;        /* ความกว้างขั้นต่ำลดลง */
+    max-width: 280px;
+    column-gap: 10px;        /* ช่องว่างระหว่างไอคอนกับข้อความแคบลง */
+    row-gap: 0px;
+    
+    align-items: center;
+}
+
+/* 1. รูปภาพ (Icon) - ซ้าย */
+.notification.item img,
+.notification.item .icon {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    align-self: center;
+    
+    /* --- ลดขนาด Icon ลงอีก 15% --- */
+    width: 32px !important;  /* เหลือ 32px (จาก 38px) */
+    height: 32px !important;
+    object-fit: contain;
+    margin: 0 !important;
+    display: block;
+}
+
+/* 2. หัวข้อ (Title) - ขวาบน (กึ่งกลาง) */
+.notification.item .title,
+.notification.item .notification-title,
+.notification.item strong {
+    grid-column: 2;
+    grid-row: 1;
+    
+    font-family: 'Pridi', serif !important;
+    /* --- ลด Font ลงอีก --- */
+    font-size: 0.8rem !important; /* เหลือ 0.8rem */
+    font-weight: 600 !important;
+    color: #ffffff !important;
+    
+    /* --- จัดกึ่งกลาง --- */
+    text-align: center !important;
+    width: 100%;             /* บังคับเต็มความกว้าง cell */
+    display: block;
+    
+    /* เส้นคั่น */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    padding-bottom: 3px;     /* ลดระยะห่าง */
+    margin-bottom: 3px !important;
+}
+.notification.item .title::after { display: none; }
+
+/* 3. คำอธิบาย (Description) - ขวาล่าง (กึ่งกลาง) */
+.notification.item .description,
+.notification.item .notification-description,
+.notification.item .message,
+.notification.item p {
+    grid-column: 2;
+    grid-row: 2;
+    
+    font-family: 'Pridi', serif !important;
+    /* --- ลด Font ลงอีก --- */
+    font-size: 0.65rem !important; /* เหลือ 0.65rem (เล็กคมชัด) */
+    color: #999999 !important;
+    font-weight: 400 !important;
+    
+    /* --- แก้ไขให้จัดกึ่งกลางชัวร์ๆ --- */
+    text-align: center !important;
+    width: 100%;             /* ยืดเต็มพื้นที่เพื่อหาจุดกึ่งกลาง */
+    display: block;          /* บังคับเป็น block */
+    
+    line-height: 1.2;
+    margin: 0 !important;
+    align-self: start;
+}

@@ -35,6 +35,36 @@ local function RemoveNotificationKeys(notificationId)
     end
 end
 
+local function SendItemNotification(options, template)
+    if type(options) ~= "table" and type(template) ~= "table" then
+        return print("Error: options or template must be a table")
+    end
+
+    local finalOptions = {}
+    
+    -- (โค้ดส่วนรวม Template เหมือนเดิม หรือจะตัดออกก็ได้ถ้าไม่ใช้ Template)
+    if template and type(template) == "string" and Config.Templates[template] then
+        for k, v in pairs(Config.Templates[template]) do
+            finalOptions[k] = v
+        end
+    end
+    
+    for k, v in pairs(options) do
+        finalOptions[k] = v
+    end
+
+    local notificationId = GetGameTimer() .. math.random(1000000) .. GetPlayerServerId(PlayerId())
+    finalOptions.id = notificationId
+    
+    -- ส่ง type เป็น MTN_NOTIFY_ITEM
+    SendNUIMessage({
+        type = "MTN_NOTIFY_ITEM", 
+        options = finalOptions
+    })
+    
+    -- (Item ส่วนใหญ่ไม่ต้องมี keyActions แต่ถ้าจะใส่ก็เก็บ logic เดิมไว้ได้)
+end
+
 CreateThread(function()
     while true do
         Wait(0)
@@ -161,4 +191,21 @@ AddEventHandler("mtn_notify:keyPressed", function(action)
     elseif action == "cancel_trade" then
         print("คุณกดยกเลิก")
     end
+end)
+
+-- ลงทะเบียน Event ชื่อ mtn_notify:sendItem
+RegisterNetEvent(resourceName .. ":sendItem")
+AddEventHandler(resourceName .. ":sendItem", function(options, template)
+    SendItemNotification(options, template)
+end)
+
+-- สร้างคำสั่งทดสอบ
+RegisterCommand('testitem', function()
+    TriggerEvent("mtn_notify:sendItem", {
+        title = "ได้รับไอเทม",
+        description = "น้ำดื่มสะอาด x1",
+        icon = "tick", -- หรือชื่อไฟล์รูปไอเทม
+        placement = "bottom-right",
+        duration = 3000
+    })
 end)

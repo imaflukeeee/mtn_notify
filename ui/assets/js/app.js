@@ -34,6 +34,11 @@ new Vue({
         this.PlaySound(event.data.options?.customSound);
         this.notify(event.data.options);
       } 
+      else if (event.data.type === "MTN_NOTIFY_ITEM") {
+      this.PlaySound(event.data.options?.customSound);
+      event.data.options.isItem = true; // กำหนดค่า isItem เป็น true
+      this.notify(event.data.options);
+      }
       // แก้ไขตรงนี้: เปลี่ยนจาก BLN_NOTIFY_KEY_PRESSED เป็น MTN_NOTIFY_KEY_PRESSED
       else if (event.data.type === "MTN_NOTIFY_KEY_PRESSED") {
         this.handleKeyPress(
@@ -63,6 +68,7 @@ new Vue({
             : this.useBackground,
         contentAlignment: options.contentAlignment || this.contentAlignment,
         isRTL: options.isRTL !== undefined ? options.isRTL : this.isRTL,
+        isItem: options.isItem || false, // <--- เพิ่มบรรทัดนี้ (isItem)
         duration: duration,
         remainingTime: duration / 1000,
         progress: {

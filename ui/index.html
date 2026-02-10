@@ -20,7 +20,7 @@
       :class="['notification-container', position]">
       <transition-group name="jelly" tag="div">
         <div v-for="notification in container" :key="notification.id" :class="['notification', position, 
-                              { 'with-bg': notification.useBackground, 'without-bg': !notification.useBackground },
+                              { 'with-bg': notification.useBackground, 'without-bg': !notification.useBackground, 'item': notification.isItem },
                               `align-${notification.contentAlignment} ${ notification.isRTL ? 'rtl' : 'ltr'}`,]"
           :style="{ direction: notification.isRTL ? 'rtl' : 'ltr' }">
           
