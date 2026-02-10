@@ -16,6 +16,7 @@ new Vue({
       selectedPosition: "top-right",
       notificationContainers: {},
       notificationCount: 0,
+      maxNotifications: 1, // เพิ่มการจำกัดจำนวนไว้ตรงนี้ (ปรับตัวเลขได้ตามต้องการ)
       useBackground: true,
       contentAlignment: "start",
       isRTL: false,
@@ -78,6 +79,15 @@ new Vue({
         notification,
         ...this.notificationContainers[placement],
       ]);
+
+      // --- ส่วนที่แก้ไข: ลบอันเก่าออกถ้าเกินลิมิต ---
+      if (this.notificationContainers[placement].length > this.maxNotifications) {
+        const oldestNotification = this.notificationContainers[placement][this.notificationContainers[placement].length - 1];
+        if (oldestNotification) {
+            this.removeNotification(placement, oldestNotification.id);
+        }
+      }
+      // ------------------------------------------
 
       if (notification.progress.enabled) {
         requestAnimationFrame(() => {
