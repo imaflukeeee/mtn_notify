@@ -202,12 +202,12 @@ end)
 -- สร้างคำสั่งทดสอบ
 RegisterCommand('testitem', function()
     TriggerEvent("mtn_notify:sendItem", {
-        title = "Add",
+        title = "Added",
         description = "Revolver Ammo Splitpoint",
         icon = "tick", -- หรือชื่อไฟล์รูปไอเทม
         placement = "bottom-right",
         color = "", -- สีเขียว (Default)
-        titleColor = "#FF0077FF",
+        titleColor = "#009900",
         duration = 3000
     })
 end)

@@ -89,7 +89,7 @@ new Vue({
       ]);
 
       // --- ส่วนที่แก้ไข: ลบอันเก่าออกถ้าเกินลิมิต ---
-      if (this.notificationContainers[placement].length > this.maxNotifications) {
+      if (!notification.isItem && this.notificationContainers[placement].length > this.maxNotifications) {
         const oldestNotification = this.notificationContainers[placement][this.notificationContainers[placement].length - 1];
         if (oldestNotification) {
             this.removeNotification(placement, oldestNotification.id);

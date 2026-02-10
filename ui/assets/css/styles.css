@@ -195,7 +195,7 @@
 }
 
 .jelly-enter-active { animation-duration: 0.4s; animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-.jelly-leave-active { animation-duration: 0.3s; animation-timing-function: ease-in; position: absolute; }
+.jelly-leave-active { animation-duration: 0.3s; animation-timing-function: ease-in; }
 
 .jelly-enter-active.top-right, .jelly-enter-active.middle-right, .jelly-enter-active.bottom-right { animation-name: slideInRight; }
 .jelly-enter-active.top-left, .jelly-enter-active.middle-left, .jelly-enter-active.bottom-left { animation-name: slideInLeft; }
@@ -219,18 +219,23 @@
     display: none;
 }
 
-/* --- Notification Item Styling (Final Version) --- */
+/* --- Notification Item Styling --- */
 .notification.item {
     width: 240px;
     min-height: 40px;
+    
+    /* --- แก้ไข: เพิ่มค่าตัวสุดท้าย (Left) จาก 6px เป็น 12px (หรือมากกว่านี้ถ้าต้องการให้ขยับไปอีก) --- */
     padding: 8px 10px 8px 12px; 
-    gap: 8px;
+    
+    /* Gap ระหว่างไอคอนกับตัวหนังสือ (คงไว้ 4px หรือปรับเป็น 6px ถ้าอยากให้ห่างกันอีก) */
+    gap: 4px; 
+    
     margin-left: auto;
     
     background: rgba(20, 20, 20, 0.95);
     border: 1px solid rgba(255, 255, 255, 0.1);
     
-    /* สีขอบซ้ายเริ่มต้น (จะถูกเปลี่ยนถ้ามีการส่งสีเข้ามา) */
+    /* สีขอบซ้ายเริ่มต้น */
     border-left: 3px solid #00d26a; 
     
     border-radius: 4px;
@@ -240,7 +245,7 @@
     align-items: center;
 }
 
-/* 1. ไอคอน */
+/* --- ส่วนอื่นๆ คงเดิมได้เลยครับ --- */
 .notification.item .notification-icon,
 .notification.item img {
     width: 24px !important;
@@ -250,7 +255,6 @@
     flex-shrink: 0;
 }
 
-/* 2. กล่องข้อความ */
 .notification.item .notification-content {
     display: flex;
     flex-direction: column;
@@ -260,39 +264,32 @@
     overflow: hidden;
 }
 
-/* 3. หัวข้อ (Title) */
 .notification.item .notification-title {
     font-size: 12px !important;
     font-weight: 600;
-    
-    /* สีตัวหนังสือเริ่มต้น (จะถูกเปลี่ยนถ้ามีการส่งสีเข้ามา) */
     color: #ffffff;
-    
     line-height: 1.2;
     text-transform: none;
     text-align: left !important;
     border-bottom: none !important; 
     padding-bottom: 0;
-    margin-bottom: 4px !important; 
+    margin-bottom: 2px !important; 
     display: block;
 }
 
-/* ซ่อนเส้นคั่น */
 .notification.item .notification-title::after {
     display: none !important;
 }
 
-/* 4. คำอธิบาย (Description) */
 .notification.item .notification-description {
     font-size: 10px !important;
-    color: #ffffff;
+    color: #dedede;
     font-weight: 400;
     line-height: 1.2;
     text-align: left !important;
     width: 100%;
 }
 
-/* ซ่อน Progress bar */
 .notification.item .progress-bar, 
 .notification.item .progress-circle {
     display: none !important;
