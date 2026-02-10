@@ -223,14 +223,15 @@
 
 /* --- Notification Item Styling --- */
 .notification.item {
-    width: 240px;
-    min-height: 40px;
+    /* ปรับความกว้างจาก 240px เป็น 264px */
+    width: 264px; 
+    /* ปรับความสูงขั้นต่ำจาก 40px เป็น 44px */
+    min-height: 44px;
     
-    /* --- แก้ไข: เพิ่มค่าตัวสุดท้าย (Left) จาก 6px เป็น 12px (หรือมากกว่านี้ถ้าต้องการให้ขยับไปอีก) --- */
-    padding: 8px 10px 8px 12px; 
+    /* ปรับ Padding เพิ่มขึ้น 10% (จาก 8px 10px 8px 12px) */
+    padding: 9px 11px 9px 13.5px; 
     
-    /* Gap ระหว่างไอคอนกับตัวหนังสือ (คงไว้ 4px หรือปรับเป็น 6px ถ้าอยากให้ห่างกันอีก) */
-    gap: 4px; 
+    gap: 5px; /* ปรับช่องว่างเล็กน้อย */
     
     margin-left: auto;
     
@@ -240,18 +241,19 @@
     /* สีขอบซ้ายเริ่มต้น */
     border-left: 3px solid #00d26a; 
     
-    border-radius: 4px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    border-radius: 4.5px; /* ปรับความโค้งเล็กน้อย */
+    box-shadow: 0 4.5px 11px rgba(0,0,0,0.5);
     
     display: flex !important;
     align-items: center;
 }
 
-/* --- ส่วนอื่นๆ คงเดิมได้เลยครับ --- */
+/* ปรับขนาดไอคอน */
 .notification.item .notification-icon,
 .notification.item img {
-    width: 24px !important;
-    height: 24px !important;
+    /* จาก 24px เป็น 26.5px */
+    width: 26.5px !important;
+    height: 26.5px !important;
     object-fit: contain;
     margin: 0 !important;
     flex-shrink: 0;
@@ -266,8 +268,10 @@
     overflow: hidden;
 }
 
+/* ปรับขนาดตัวหนังสือหัวข้อ */
 .notification.item .notification-title {
-    font-size: 12px !important;
+    /* จาก 12px เป็น 13.2px */
+    font-size: 13.2px !important;
     font-weight: 600;
     color: #ffffff;
     line-height: 1.2;
@@ -275,7 +279,7 @@
     text-align: left !important;
     border-bottom: none !important; 
     padding-bottom: 0;
-    margin-bottom: 2px !important; 
+    margin-bottom: 2.2px !important; /* ปรับระยะห่าง */
     display: block;
 }
 
@@ -283,37 +287,13 @@
     display: none !important;
 }
 
+/* ปรับขนาดตัวหนังสือรายละเอียด */
 .notification.item .notification-description {
-    font-size: 10px !important;
+    /* จาก 10px เป็น 11px */
+    font-size: 13px !important;
     color: #dedede;
     font-weight: 400;
     line-height: 1.2;
     text-align: left !important;
     width: 100%;
-}
-
-.notification.item .progress-bar, 
-.notification.item .progress-circle {
-    display: none !important;
-}
-
-/* จัดเรียงชิดขวา สำหรับตำแหน่งทางขวา */
-.notification-container.top-right,
-.notification-container.middle-right,
-.notification-container.bottom-right {
-    align-items: flex-end;
-}
-
-/* จัดเรียงชิดซ้าย สำหรับตำแหน่งทางซ้าย */
-.notification-container.top-left,
-.notification-container.middle-left,
-.notification-container.bottom-left {
-    align-items: flex-start;
-}
-
-/* จัดเรียงตรงกลาง สำหรับตำแหน่งตรงกลาง */
-.notification-container.top-center,
-.notification-container.middle-center,
-.notification-container.bottom-center {
-    align-items: center;
 }
