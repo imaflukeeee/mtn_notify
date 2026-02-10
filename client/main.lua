@@ -119,7 +119,7 @@ RegisterCommand('testnotify', function()
         title = "ทดสอบระบบ",
         description = "นี่คือข้อความแจ้งเตือนจากคำสั่ง ~green~testnotify~e~",
         icon = "tick",
-        placement = "top-right",
+        placement = "bottom-right",
         duration = 5000
     })
 end)
