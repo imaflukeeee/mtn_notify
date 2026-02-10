@@ -18,11 +18,12 @@
     position: fixed;
     z-index: 99999999;
     pointer-events: none;
-    width: 320px; /* ลดจาก 400px เหลือ 320px */
-    max-width: 90%;
+    width: auto;          /* ให้ความกว้างปรับอัตโนมัติ */
+    min-width: 320px;     /* (แนะนำ) ให้มีความกว้างขั้นต่ำ กล่องจะได้ไม่ดูเล็กเกินไป */
+    max-width: 600px;     /* (แนะนำ) จำกัดความกว้างสูงสุดไม่ให้ยาวทะลุจอ */
     display: flex;
     flex-direction: column;
-    gap: 8px; /* ลด gap ลง */
+    gap: 8px;
 }
 
 .notification-container.top-right { top: 24px; right: 24px; }
@@ -107,6 +108,7 @@
     color: #cccccc;
     line-height: 1.35;
     word-wrap: break-word;
+    white-space: pre-wrap; /* เพิ่มบรรทัดนี้เพื่อให้รองรับการเว้นวรรคและการขึ้นบรรทัดใหม่ได้ดีขึ้น */
 }
 
 /* Inline Images & Keys */
@@ -293,4 +295,25 @@
 .notification.item .progress-bar, 
 .notification.item .progress-circle {
     display: none !important;
+}
+
+/* จัดเรียงชิดขวา สำหรับตำแหน่งทางขวา */
+.notification-container.top-right,
+.notification-container.middle-right,
+.notification-container.bottom-right {
+    align-items: flex-end;
+}
+
+/* จัดเรียงชิดซ้าย สำหรับตำแหน่งทางซ้าย */
+.notification-container.top-left,
+.notification-container.middle-left,
+.notification-container.bottom-left {
+    align-items: flex-start;
+}
+
+/* จัดเรียงตรงกลาง สำหรับตำแหน่งตรงกลาง */
+.notification-container.top-center,
+.notification-container.middle-center,
+.notification-container.bottom-center {
+    align-items: center;
 }
