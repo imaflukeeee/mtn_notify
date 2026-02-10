@@ -19,40 +19,49 @@
     <div v-for="(container, position) in notificationContainers" :key="position"
       :class="['notification-container', position]">
       <transition-group name="jelly" tag="div">
-        <div v-for="notification in container" :key="notification.id" :class="['notification', position, 
-                              { 'with-bg': notification.useBackground, 'without-bg': !notification.useBackground, 'item': notification.isItem },
-                              `align-${notification.contentAlignment} ${ notification.isRTL ? 'rtl' : 'ltr'}`,]"
-          :style="{ direction: notification.isRTL ? 'rtl' : 'ltr' }">
+        <div v-for="notification in container" :key="notification.id" 
+          :class="['notification', position, 
+                  { 'with-bg': notification.useBackground, 'without-bg': !notification.useBackground, 'item': notification.isItem },
+                  `align-${notification.contentAlignment} ${ notification.isRTL ? 'rtl' : 'ltr'}`,]"
+                  
+          :style="{ 
+              direction: notification.isRTL ? 'rtl' : 'ltr',
+              borderLeftColor: notification.isItem ? notification.color : undefined 
+          }">
           
           <div class="icon-wrapper" v-if="notification.icon">
-             <img :src="getIconUrl(notification.icon)" alt="Notification Icon" class="notification-icon" />
+            <img :src="getIconUrl(notification.icon)" alt="Notification Icon" class="notification-icon" />
           </div>
 
           <div :class="['notification-content', { 'with-description': notification.description, 'no-title': !notification.title }]">
-            <div v-if="notification.title" class="notification-title">
-              <dynamic-text :text="notification.title"></dynamic-text>
-            </div>
-            <div v-if="notification.description" class="notification-description">
-              <dynamic-text :text="notification.description"></dynamic-text>
-            </div>
-          </div>
-          
-          <template v-if="notification.progress && notification.progress.enabled">
-            <bar-progress
-              v-if="notification.progress.type === 'bar'"
-              :progress="notification.progress.value"
-              :duration="notification.duration"
-              :color="notification.progress.color"
-            ></bar-progress>
-            <circle-progress
-              v-else-if="notification.progress.type === 'circle'"
-              :progress="notification.progress.value"
-              :duration="notification.duration"
-              :color="notification.progress.color"
-              :remaining-time="notification.remainingTime"
-            ></circle-progress>
-          </template>
-        </div>
+                      
+                      <div v-if="notification.title" class="notification-title" 
+                          :style="{ color: notification.isItem ? notification.titleColor : undefined }">
+                        <dynamic-text :text="notification.title"></dynamic-text>
+                      </div>
+                      
+                      <div v-if="notification.description" class="notification-description">
+                        <dynamic-text :text="notification.description"></dynamic-text>
+                      </div>
+                    </div>
+                    
+                    <template v-if="notification.progress && notification.progress.enabled">
+                      <bar-progress
+                        v-if="notification.progress.type === 'bar'"
+                        :progress="notification.progress.value"
+                        :duration="notification.duration"
+                        :color="notification.progress.color"
+                      ></bar-progress>
+                      <circle-progress
+                        v-else-if="notification.progress.type === 'circle'"
+                        :progress="notification.progress.value"
+                        :duration="notification.duration"
+                        :color="notification.progress.color"
+                        :remaining-time="notification.remainingTime"
+                      ></circle-progress>
+                    </template>
+                    
+                  </div>
       </transition-group>
     </div>
   </div>

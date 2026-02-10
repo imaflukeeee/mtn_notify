@@ -149,7 +149,7 @@ RegisterCommand('testnotify', function()
         title = "ทดสอบระบบ",
         description = "นี่คือข้อความแจ้งเตือนจากคำสั่ง ~green~testnotify~e~",
         icon = "tick",
-        placement = "bottom-right",
+        placement = "middle-right",
         duration = 5000
     })
 end)
@@ -202,10 +202,12 @@ end)
 -- สร้างคำสั่งทดสอบ
 RegisterCommand('testitem', function()
     TriggerEvent("mtn_notify:sendItem", {
-        title = "ได้รับไอเทม",
-        description = "น้ำดื่มสะอาด x1",
+        title = "Add",
+        description = "Revolver Ammo Splitpoint",
         icon = "tick", -- หรือชื่อไฟล์รูปไอเทม
         placement = "bottom-right",
+        color = "", -- สีเขียว (Default)
+        titleColor = "#FF0077FF",
         duration = 3000
     })
 end)

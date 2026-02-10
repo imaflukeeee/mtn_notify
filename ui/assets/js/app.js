@@ -62,13 +62,15 @@ new Vue({
         title: options.title !== undefined ? options.title : "Notification",
         description: options.description || null,
         icon: options.icon || null,
+        color: options.color || "#ffffff", // รับค่าสี ถ้าไม่มีให้ใช้สีเขียว #ffffff เป็นค่าเริ่มต้น
+        titleColor: options.titleColor || "#006eff",  // สีหัวข้อ (ถ้าไม่ส่งมา ใช้สีขาว)
         useBackground:
           options.useBackground !== undefined
             ? options.useBackground
             : this.useBackground,
         contentAlignment: options.contentAlignment || this.contentAlignment,
         isRTL: options.isRTL !== undefined ? options.isRTL : this.isRTL,
-        isItem: options.isItem || false, // <--- เพิ่มบรรทัดนี้ (isItem)
+        isItem: options.isItem || false, // <--- บรรทัดนี้ (isItem)
         duration: duration,
         remainingTime: duration / 1000,
         progress: {
