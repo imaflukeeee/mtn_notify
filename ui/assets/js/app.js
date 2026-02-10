@@ -53,7 +53,7 @@ new Vue({
 
       const notification = {
         id: id,
-        title: (options.title && options.title !== "") ? options.title : null,
+        title: options.title !== undefined ? options.title : "Notification",
         description: options.description || null,
         icon: options.icon || null,
         useBackground:
