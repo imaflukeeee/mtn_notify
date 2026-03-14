@@ -16,7 +16,7 @@ new Vue({
       selectedPosition: "top-right",
       notificationContainers: {},
       notificationCount: 0,
-      maxNotifications: 1, // เพิ่มการจำกัดจำนวนไว้ตรงนี้ (ปรับตัวเลขได้ตามต้องการ)
+      maxNotifications: 5, // เพิ่มการจำกัดจำนวนไว้ตรงนี้ (ปรับตัวเลขได้ตามต้องการ)
       useBackground: true,
       contentAlignment: "start",
       isRTL: false,
