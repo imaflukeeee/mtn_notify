@@ -211,3 +211,34 @@ RegisterCommand('testitem', function()
         duration = 3000
     })
 end)
+
+RegisterCommand('testsendall', function()
+    -- ยิง Trigger ไปที่ Server เพื่อให้ Server กระจายแจ้งเตือนหาทุกคน
+    TriggerServerEvent("mtn_notify:sendAll", { 
+        title = "",
+        description = "ได้รับไอเทม Apple ทุกคนในเซิร์ฟเวอร์!",
+        icon = "apple", -- ใส่แค่ชื่อไอเทม (Server จะเติม nui://vorp_inventory/.../apple.png ให้เอง)
+        placement = "middle-right",
+        duration = 5000,
+        progress = {
+            enabled = true,
+            type = 'bar', -- มีแบบ 'bar' และ 'circle'
+            color = 'FFFFFFFF'
+        }
+    })
+end)
+
+RegisterCommand('testsendall2', function()
+    -- ยิง Trigger ไปที่ Server เพื่อให้ Server กระจายแจ้งเตือนหาทุกคน
+    TriggerServerEvent("mtn_notify:sendAll", { 
+        title = "",
+        description = "ได้รับไอเทม Apple ทุกคนในเซิร์ฟเวอร์!",
+        placement = "middle-right",
+        duration = 5000,
+        progress = {
+            enabled = true,
+            type = 'bar', -- มีแบบ 'bar' และ 'circle'
+            color = 'FFFFFFFF'
+        }
+    })
+end)
